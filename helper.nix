@@ -22,6 +22,14 @@ pkgs: {
     passthru = {
       filename = final.src.name;
       croppedFilename = "cropped${final.src.name}";
+      metadata = let 
+        metaList = builtins.match "__(.*)_drawn_by_(.*)__(.*)\\.(.*)" final.src.name;
+      in {
+        character = builtins.elemAt metaList 0;
+        artist = builtins.elemAt metaList 1;
+        id = builtins.elemAt metaList 2;
+        filetype = builtins.elemAt metaList 3;
+      };
     };
   });
   image = "${package}/${package.filename}";

@@ -33,14 +33,3 @@
     );
   };
 }
-# Some regex for later maybe
-# ORIGINAL STRING
-# __sangonomiya_kokomi_genshin_impact_drawn_by_kuqfh__63081368093489e52faa973b6384a125.jpg
-# REGEXED String
-# character = sangonomiya_kokomi_genshin_impact
-# artist = kuqfh
-# id = 63081368093489e52faa973b6384a125
-# filetype = jpg
-# REGEX
-# s/__\(.\{-}\)_drawn_by_\(.\{-}\)__\(.\{-}\)\.\(.*\)/character = \1\r# artist = \2\r# id = \3\r# filetype = \4
-
