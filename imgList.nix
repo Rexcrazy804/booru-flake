@@ -1,3 +1,4 @@
+# WARN the name attribute should match the variable value
 helper: {
   kokomi_kuqfh = helper {
     name = "kokomi_kuqfh";
@@ -24,5 +25,20 @@ helper: {
     name = "kokomi_elothree";
     url = "https://cdn.donmai.us/original/ae/f3/__sangonomiya_kokomi_genshin_impact_drawn_by_elodeas__aef3b3fd04e76c3159c3f5c7a75e5883.jpg";
     hash = "sha256-hcbq1OhX6cemStSxvoCtz7W+txoG5WKiH19BxudFoGY=";
+  };
+  shenhe_mintbr = helper {
+    name = "shenhe_mintbr";
+    url = "https://cdn.donmai.us/original/5f/2a/__shenhe_genshin_impact_drawn_by_mintbreak__5f2a8843efc3afa109510845f51335ff.png";
+    hash = "sha256-OjG4NIh59R8+69uEm6ONZOPjTRvl/zOhf5mdnvFjGe8=";
+  };
+  shenhe_toyom = helper {
+    name = "shenhe_toyom";
+    url = "https://cdn.donmai.us/original/9c/ab/__shenhe_genshin_impact_drawn_by_toyoman__9caba22f5cba96efbdc5a4a738fe5b3c.jpg";
+    hash = "sha256-01dsi8z88FS/6Az2hAxdWXM2zY7D/QXRkGj5stoxIyc=";
+  };
+  kokomi_kotak = helper {
+    name = "kokomi_kotak";
+    url = "https://cdn.donmai.us/original/83/0c/__sangonomiya_kokomi_genshin_impact_drawn_by_kotatsu_kaya__830cdbb700d4ed21565e3c21d95b7e2a.jpg";
+    hash = "sha256-+tbQ82O4cPQwMxaYYOVHzrWlnlfx3x0i2GntFJO52YE=";
   };
 }
