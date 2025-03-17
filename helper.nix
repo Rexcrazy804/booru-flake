@@ -1,5 +1,5 @@
 pkgs: {
-  name ? "booru_image",
+  name,
   url,
   hash,
   cropString ? null,

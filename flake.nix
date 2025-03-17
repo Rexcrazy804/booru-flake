@@ -21,13 +21,18 @@
     # otherwise you can just refer to package.image
     # or package.croppedImage for the paths
 
-    packages = forAllSystems (pkgs: let
-      helper = import ./helper.nix pkgs;
-    in
-      import ./imgList.nix helper);
+    packages = forAllSystems (
+      pkgs: let
+        helper = import ./helper.nix pkgs;
+      in
+        pkgs.lib.recursiveUpdate (import ./imgList.nix helper) {
+          default = import ./all.nix {
+              inherit self pkgs;
+          };
+        }
+    );
   };
 }
-
 # Some regex for later maybe
 # ORIGINAL STRING
 # __sangonomiya_kokomi_genshin_impact_drawn_by_kuqfh__63081368093489e52faa973b6384a125.jpg
@@ -38,3 +43,4 @@
 # filetype = jpg
 # REGEX
 # s/__\(.\{-}\)_drawn_by_\(.\{-}\)__\(.\{-}\)\.\(.*\)/character = \1\r# artist = \2\r# id = \3\r# filetype = \4
+
