@@ -10,14 +10,33 @@
     __metadata = package.package.metadata;
   };
   mainlist = builtins.attrValues (import ./imgList.nix parser);
-  kokomi = let
-    filter = attrs: (attrs.__metadata.character == "sangonomiya_kokomi_genshin_impact");
-  in
-    pkgs.linkFarm "Kokomi" (builtins.filter filter mainlist);
+  characterList =
+    builtins.map (x: rec {
+      name = x.__metadata.character;
+      path = let
+        filter = attrs: (attrs.__metadata.character == name);
+      in
+        pkgs.linkFarm name (builtins.filter filter mainlist);
+    })
+    mainlist;
+
+  ArtistList =
+    builtins.map (x: rec {
+      name = x.__metadata.artist;
+      path = let
+        filter = attrs: (attrs.__metadata.artist == name);
+      in
+        pkgs.linkFarm name (builtins.filter filter mainlist);
+    })
+    mainlist;
 in
   pkgs.linkFarm "Danbooru" [
     {
-      name = "kokomi";
-      path = kokomi;
+      name = "artists";
+      path = pkgs.linkFarm "artists" ArtistList;
+    }
+    {
+      name = "characters";
+      path = pkgs.linkFarm "characters" characterList;
     }
   ]
