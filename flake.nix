@@ -16,11 +16,10 @@
           f (import nixpkgs {inherit system;})
       );
   in {
-    # WARNING
-    # you need to call {packagename}.package for building
-    # otherwise you can just refer to package.image
-    # or package.croppedImage for the paths
-
+    # NOTE
+    # you can refer to the images using packages.${system}."<image id>"
+    # you can also get its metadata with packages.${system}."<image id>".metadata
+    # it follows the danbooru api json spec
     packages = forAllSystems (
       pkgs: let
         new_helper = pkgs.callPackage ./newHelper.nix;
@@ -49,8 +48,8 @@
               }
             }
           '';
+
           # you have to override this package with id, jsonHash, and imgHash
-          # passthru's metadata imported from the API response URL
           fetchBooruImage = new_helper {};
         }
     );
