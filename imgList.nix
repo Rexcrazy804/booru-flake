@@ -40,4 +40,39 @@ helper: {
     url = "https://cdn.donmai.us/original/83/0c/__sangonomiya_kokomi_genshin_impact_drawn_by_kotatsu_kaya__830cdbb700d4ed21565e3c21d95b7e2a.jpg";
     hash = "sha256-+tbQ82O4cPQwMxaYYOVHzrWlnlfx3x0i2GntFJO52YE=";
   };
+  "0b726576a7edf7fd20df3cd10c804994" = helper {
+    name = "0b726576a7edf7fd20df3cd10c804994";
+    url = "https://cdn.donmai.us/original/0b/72/__jane_doe_zenless_zone_zero_drawn_by_angnomsy__0b726576a7edf7fd20df3cd10c804994.jpg";
+    hash = "sha256-SnLEcu+TALNikZMwEz1dm4oxSd5idlmUb2+xzD0GAHk=";
+  };
+  "03756995a1104691f80927a9b1a18239" = helper {
+    name = "03756995a1104691f80927a9b1a18239";
+    url = "https://cdn.donmai.us/original/03/75/__jane_doe_zenless_zone_zero_drawn_by_hue_oo__03756995a1104691f80927a9b1a18239.jpg";
+    hash = "sha256-9ViMt324qtkhGdObScDfsebhunKPsFCyLHvCWpo+OeQ=";
+  };
+  "47cd17c4ff8da88cd212b705b307a4c0" = helper {
+    name = "47cd17c4ff8da88cd212b705b307a4c0";
+    url = "https://cdn.donmai.us/original/47/cd/__jane_doe_zenless_zone_zero_drawn_by_regrets_r8grets__47cd17c4ff8da88cd212b705b307a4c0.webp";
+    hash = "sha256-oTLE3S3cQSTUjgxDyeGlU7A0xV8a9WDQ00RDl65Y3sc=";
+  };
+  "75ace2447359350bd1e1b9d74cf26023" = helper {
+    name = "75ace2447359350bd1e1b9d74cf26023";
+    url = "https://cdn.donmai.us/original/75/ac/__jane_doe_zenless_zone_zero_drawn_by_miya_chan_lightning0730__75ace2447359350bd1e1b9d74cf26023.jpg";
+    hash = "sha256-IY7oXhCvseSHTfEBcz75/ojnxrOz+aa0XXtOP9SF05U=";
+  };
+  "8954af0896f56b5ee0761cb3932e934c" = helper {
+    name = "8954af0896f56b5ee0761cb3932e934c";
+    url = "https://cdn.donmai.us/original/89/54/__jane_doe_zenless_zone_zero_drawn_by_tor_torkrub111__8954af0896f56b5ee0761cb3932e934c.png";
+    hash = "sha256-D5VIRFbIVvoXv0JXXlxW0L5v77KLEAlrixUJp7e8cLk=";
+  };
+  "cbc0aa04de437840bf9a64fb4925e721" = helper {
+    name = "cbc0aa04de437840bf9a64fb4925e721";
+    url = "https://cdn.donmai.us/original/cb/c0/__jane_doe_zenless_zone_zero_drawn_by_s7nsles__cbc0aa04de437840bf9a64fb4925e721.jpg";
+    hash = "sha256-USpslVzdrKL1Jx+tO9+vA4p6dLnN5mGrFgTM5rU7vY8=";
+  };
+  "7fbb92e87a168f102576ff9621319cbf" = helper {
+    name = "7fbb92e87a168f102576ff9621319cbf";
+    url = "https://cdn.donmai.us/original/7f/bb/__jane_doe_zenless_zone_zero_drawn_by_yu_pian__7fbb92e87a168f102576ff9621319cbf.jpg";
+    hash = "sha256-+ZnmusqYvHP0wV+Z33CtqhMGoAjgOu4xDzSiDb9QhV8=";
+  };
 }
