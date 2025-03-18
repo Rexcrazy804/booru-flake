@@ -1,5 +1,5 @@
 {
-  description = "A collection of Images from danbooru";
+  description = "Rexiel Scarlet's collection of Images from danbooru";
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
@@ -16,35 +16,41 @@
           f (import nixpkgs {inherit system;})
       );
   in {
-    # WARNING
-    # you need to call {packagename}.package for building
-    # otherwise you can just refer to package.image
-    # or package.croppedImage for the paths
-
+    # NOTE
+    # you can refer to the images using packages.${system}."<image id>"
+    # you can also get its metadata with packages.${system}."<image id>".metadata
+    # it follows the danbooru api json spec
     packages = forAllSystems (
       pkgs: let
-        helper = import ./helper.nix pkgs;
+        new_helper = pkgs.callPackage ./newHelper.nix;
       in
-        pkgs.lib.recursiveUpdate (import ./imgList.nix helper) {
+        pkgs.lib.recursiveUpdate (import ./newImgList.nix new_helper) {
           default = import ./all.nix {
-              inherit self pkgs;
+            inherit self pkgs;
           };
 
           getAttrsScript = pkgs.writers.writeNuBin "get_image_expression" /*nu*/ ''
-          # A nushell script for automating the required attrset format in
-          # imgList.nix from any given number of urls
-          def main [...urls: string] {
-            for $url in $urls {
-              let hash = nix hash to-sri --type sha256 (nix-prefetch-url $url)
-              let meta = $url | parse --regex '__(.*)_drawn_by_(.*)__(.*)\.(.*)'
-              print $'"($meta.capture2.0)" = helper {'
-              print $'  name = "($meta.capture2.0)";'
-              print $'  url = "($url)";'
-              print $'  hash = "($hash)";'
-              print $'};' # just for the sake of it lol
+            # A nushell script for automating the required attrset format in
+            # imgList.nix from any given number of ids (easily pipe to wl-copy :)
+            def main [...ids: string] {
+              for $id in $ids {
+                let jsonUrl = $"https://danbooru.donmai.us/posts/($id).json"
+                let imgUrl = curl $jsonUrl | from json | get file_url
+
+                let jsonHash = nix hash to-sri --type sha256 (nix-prefetch-url $jsonUrl)
+                let imgHash = nix hash to-sri --type sha256 (nix-prefetch-url $imgUrl)
+
+                print $'"($id)" = helper {'
+                print $'  id = "($id)";'
+                print $'  jsonHash = "($jsonHash)";'
+                print $'  imgHash = "($imgHash)";'
+                print $'};' # just for the sake of it lol
+              }
             }
-          }
           '';
+
+          # you have to override this package with id, jsonHash, and imgHash
+          fetchBooruImage = new_helper {};
         }
     );
   };
