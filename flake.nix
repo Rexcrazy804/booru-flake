@@ -37,8 +37,8 @@
                 let jsonUrl = $"https://danbooru.donmai.us/posts/($id).json"
                 let imgUrl = curl $jsonUrl | from json | get file_url
 
-                let jsonHash = nix hash to-sri --type sha256 (nix-prefetch-url $jsonUrl)
-                let imgHash = nix hash to-sri --type sha256 (nix-prefetch-url $imgUrl)
+                let jsonHash = nix hash convert --hash-algo sha256 --to sri (nix-prefetch-url $jsonUrl)
+                let imgHash = nix hash convert --hash-algo sha256 --to sri (nix-prefetch-url $imgUrl)
 
                 print $'"($id)" = helper {'
                 print $'  id = "($id)";'
