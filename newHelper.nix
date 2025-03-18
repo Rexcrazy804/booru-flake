@@ -15,6 +15,7 @@ in
     hash = imgHash;
 
     passthru = {
+      # refer to danbooru's api for json spec
       metadata = jsonResponse;
     };
   }

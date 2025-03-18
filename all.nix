@@ -2,41 +2,72 @@
   self,
   pkgs,
 }: let
-  parser = {name, ...}: let
-    imgSet = self.packages.${pkgs.system}.${name};
-  in {
-    name = imgSet.package.filename;
-    path = imgSet.image;
-    __metadata = imgSet.package.metadata;
-  };
-  mainlist = builtins.attrValues (import ./imgList.nix parser);
-  characterList =
-    builtins.map (x: rec {
-      name = x.__metadata.character;
-      path = let
-        filter = attrs: (attrs.__metadata.character == name);
-      in
-        pkgs.linkFarm name (builtins.filter filter mainlist);
-    })
-    mainlist;
+  inherit (pkgs) lib system;
 
-  ArtistList =
-    builtins.map (x: rec {
-      name = x.__metadata.artist;
+  parser = {id, ...}: let
+    package = self.packages.${system}.${id};
+  in {
+    name = package.name;
+    path = package;
+    __metadata = package.metadata;
+  };
+  imgList = builtins.attrValues (import ./newImgList.nix parser);
+
+  # what is driving me to do this? no clue
+  ListFlattener = category: let 
+    fullcat = "tag_string_${category}";
+  in lib.lists.flatten (builtins.map (x: lib.splitString " " x.__metadata.${fullcat}) imgList);
+
+  characterList = ListFlattener "character";
+  artistList = ListFlattener "artist";
+  copyrightList = ListFlattener "copyright";
+
+  # to explain this fuckery to myself in the future first the final output of
+  # this is list of character folders with links to each img from the img list
+  # that contains any character from the characterList where characterList is
+  # is an overall flattened list of every character found in the imgList honest
+  # this would have been so much easier to understand if we had pipe operator
+  # out of experimental
+  # could make this a function but fuck it
+  characterFolders =
+    builtins.map (character: rec {
+      name = character;
       path = let
-        filter = attrs: (attrs.__metadata.artist == name);
+        filter = img: builtins.elem character (lib.splitString " " img.__metadata.tag_string_character);
       in
-        pkgs.linkFarm name (builtins.filter filter mainlist);
+        pkgs.linkFarm name (builtins.filter filter imgList);
     })
-    mainlist;
+    characterList;
+  artistFolders =
+    builtins.map (artist: rec {
+      name = artist;
+      path = let
+        filter = img: builtins.elem artist (lib.splitString " " img.__metadata.tag_string_artist);
+      in
+        pkgs.linkFarm name (builtins.filter filter imgList);
+    })
+    artistList;
+  copyrightFolders =
+    builtins.map (copyright: rec {
+      name = copyright;
+      path = let
+        filter = img: builtins.elem copyright (lib.splitString " " img.__metadata.tag_string_copyright);
+      in
+        pkgs.linkFarm name (builtins.filter filter imgList);
+    })
+    copyrightList;
 in
   pkgs.linkFarm "Danbooru" [
     {
       name = "artists";
-      path = pkgs.linkFarm "artists" ArtistList;
+      path = pkgs.linkFarm "artists" artistFolders;
     }
     {
       name = "characters";
-      path = pkgs.linkFarm "characters" characterList;
+      path = pkgs.linkFarm "characters" characterFolders;
+    }
+    {
+      name = "copyrights";
+      path = pkgs.linkFarm "characters" copyrightFolders;
     }
   ]

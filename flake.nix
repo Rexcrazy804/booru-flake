@@ -23,37 +23,35 @@
 
     packages = forAllSystems (
       pkgs: let
-        helper = import ./helper.nix pkgs;
+        new_helper = pkgs.callPackage ./newHelper.nix;
       in
-        pkgs.lib.recursiveUpdate (import ./imgList.nix helper) rec {
+        pkgs.lib.recursiveUpdate (import ./newImgList.nix new_helper) {
           default = import ./all.nix {
-              inherit self pkgs;
+            inherit self pkgs;
           };
 
           getAttrsScript = pkgs.writers.writeNuBin "get_image_expression" /*nu*/ ''
-          # A nushell script for automating the required attrset format in
-          # imgList.nix from any given number of urls
-          def main [...urls: string] {
-            for $url in $urls {
-              let hash = nix hash to-sri --type sha256 (nix-prefetch-url $url)
-              let meta = $url | parse --regex '__(.*)_drawn_by_(.*)__(.*)\.(.*)'
-              print $'"($meta.capture2.0)" = helper {'
-              print $'  name = "($meta.capture2.0)";'
-              print $'  url = "($url)";'
-              print $'  hash = "($hash)";'
-              print $'};' # just for the sake of it lol
+            # A nushell script for automating the required attrset format in
+            # imgList.nix from any given number of ids (easily pipe to wl-copy :)
+            def main [...ids: string] {
+              for $id in $ids {
+                let jsonUrl = $"https://danbooru.donmai.us/posts/($id).json"
+                let imgUrl = curl $jsonUrl | from json | get file_url
+
+                let jsonHash = nix hash to-sri --type sha256 (nix-prefetch-url $jsonUrl)
+                let imgHash = nix hash to-sri --type sha256 (nix-prefetch-url $imgUrl)
+
+                print $'"($id)" = helper {'
+                print $'  id = "($id)";'
+                print $'  jsonHash = "($jsonHash)";'
+                print $'  imgHash = "($imgHash)";'
+                print $'};' # just for the sake of it lol
+              }
             }
-          }
           '';
-
-          new_helper = pkgs.callPackage ./newHelper.nix {
-            id = "9013002";
-            jsonHash = "sha256-Ov7AdRkHNVdQjYGEq7JDe22mqXGLUSR0KHX7KePnTho=";
-            imgHash = "sha256-C4dOwl/5q14CGAxXmARfmRkuyi5DdDAIjFQLKDaZUjc=";
-          };
-
-          # for debugging purposes only
-          # __echo = builtins.trace new_helper.metadata.tag_string_character pkgs.hello;
+          # you have to override this package with id, jsonHash, and imgHash
+          # passthru's metadata imported from the API response URL
+          fetchBooruImage = new_helper {};
         }
     );
   };
