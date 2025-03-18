@@ -1,5 +1,5 @@
 {
-  description = "A collection of Images from danbooru";
+  description = "Rexiel Scarlet's collection of Images from danbooru";
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
