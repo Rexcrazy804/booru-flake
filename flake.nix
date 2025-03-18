@@ -35,11 +35,12 @@
           # imgList.nix from any given number of urls
           def main [...urls: string] {
             for $url in $urls {
+              let hash = nix hash to-sri --type sha256 (nix-prefetch-url $url)
               let meta = $url | parse --regex '__(.*)_drawn_by_(.*)__(.*)\.(.*)'
               print $'"($meta.capture2.0)" = helper {'
               print $'  name = "($meta.capture2.0)";'
               print $'  url = "($url)";'
-              print $'  hash = "";'
+              print $'  hash = "($hash)";'
               print $'};' # just for the sake of it lol
             }
           }
