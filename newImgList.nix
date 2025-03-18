@@ -1,3 +1,6 @@
+# WARN please just use the getAttrsScript (provided by
+# packages.${system}.getAttrsScript) to auto generate this by pasing in the
+# id's instead of rebuilding TWICE for the hashes
 helper: {
   "7452256" = helper {
     id = "7452256";
@@ -73,5 +76,10 @@ helper: {
     id = "8824359";
     jsonHash = "sha256-VjWVVExppboHvGxDqioxQVT+osOF18W+m42A47EcCo4=";
     imgHash = "sha256-+ZnmusqYvHP0wV+Z33CtqhMGoAjgOu4xDzSiDb9QhV8=";
+  };
+  "6073289" = helper {
+    id = "6073289";
+    jsonHash = "sha256-dTEpQYEYAvIuOH1e28/byipF8eG+aGqNyNS1vpHoP7w=";
+    imgHash = "sha256-wmm05g+1AxXDzaoHfIAaJnPAB6tUdTdwVsjQ/oO4KAE=";
   };
 }
