@@ -82,4 +82,59 @@ helper: {
     jsonHash = "sha256-dTEpQYEYAvIuOH1e28/byipF8eG+aGqNyNS1vpHoP7w=";
     imgHash = "sha256-wmm05g+1AxXDzaoHfIAaJnPAB6tUdTdwVsjQ/oO4KAE=";
   };
+  "5719657" = helper {
+    id = "5719657";
+    jsonHash = "sha256-mkSVHwCfcdrvaxUGIWvpaVSwtjC8QOUxGM2lrOVSU/w=";
+    imgHash = "sha256-gqVLEm17hzJgKS1DT24rJeOECJ5T677Z271cCZrKXOk=";
+  };
+  "8958877" = helper {
+    id = "8958877";
+    jsonHash = "sha256-k/1DoCvA7XcV/ouguqnXhhf3a5BEZMu7UY6I9OYgC3M=";
+    imgHash = "sha256-TBNqSagULixVtYWOJ9dSudI+jE1mpQ/VYvoxa9d9EFo=";
+  };
+  "8322508" = helper {
+    id = "8322508";
+    jsonHash = "sha256-8gy632F4Xy+H4j46mg/MYqH1/Dh7OfTEhiQeFKrTJ4w=";
+    imgHash = "sha256-7vH5urdITyC+Rgq/pewTtiK0aQmdFBdo07G4AEXxkoI=";
+  };
+  "8285601" = helper {
+    id = "8285601";
+    jsonHash = "sha256-pYkArD2CnaeN/zNJDmn/+jdzaKdAWcTvfAp8N/yJze0=";
+    imgHash = "sha256-qz8/GBpUHQU19HFDZ2k/In+YIwxcsqaFB02OfuAcdDM=";
+  };
+  "8280034" = helper {
+    id = "8280034";
+    jsonHash = "sha256-qmZ4j2M75xDzhXfdMRpmCyKaPiyhZiwRxcRqxbIzIxY=";
+    imgHash = "sha256-HWIEBHpW4RpIuCBE0yFw+XL1tzpN8vXSDPaKflOlgX0=";
+  };
+  "8255770" = helper {
+    id = "8255770";
+    jsonHash = "sha256-TGgWH31t5OVMmUXblFIeo76RKUZnlneGFpec1REYRdE=";
+    imgHash = "sha256-dyJSTazoh+M11em581bfkgiDTY/psoqip5xzr1vb2NQ=";
+  };
+  "8238034" = helper {
+    id = "8238034";
+    jsonHash = "sha256-Q9JigcKhLnxnLCs2Y/LhbQcZNiaL+Baa465YMTX1feY=";
+    imgHash = "sha256-QtwZRYUAe4CIi+fRq7AlirtnFCwg8+FhmDXNL82fjZY=";
+  };
+  "8233835" = helper {
+    id = "8233835";
+    jsonHash = "sha256-wNqJMeDAebu+Y+XPAn+CYTdLLiEjYjsWznbyGhMBlPw=";
+    imgHash = "sha256-UHDORjUWhJcbCU6hdDjNHwXuVjh8j7drFPZWPLsU7CA=";
+  };
+  "8234888" = helper {
+    id = "8234888";
+    jsonHash = "sha256-pIEDcFnAbILRIoQctSrnKubNd+X23wn2JVcFBmMpeXs=";
+    imgHash = "sha256-Ch6wEqiaypE6jai9uil4C3GxeZ3f3cqbxVutwEmwzrk=";
+  };
+  "8233712" = helper {
+    id = "8233712";
+    jsonHash = "sha256-zxuncHlY7AKUNnzt0i+2PxiWa0e/XCitF3NYUbLJ/Vk=";
+    imgHash = "sha256-LJTnMao7TBfWGCekSbih1/a9TxJRohwGpVhqm04HDBg=";
+  };
+  "7973468" = helper {
+    id = "7973468";
+    jsonHash = "sha256-yA6Ka3ou9uNi5D76Wa2cAKQ+awwFAwUdXUGKpqVN240=";
+    imgHash = "sha256-vkIDSBuspH3HY5noesMNtO1/XXkPOiLb9zyqv73qyF8=";
+  };
 }
