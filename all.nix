@@ -3,11 +3,11 @@
   pkgs,
 }: let
   parser = {name, ...}: let
-    package = self.packages.${pkgs.system}.${name};
+    imgSet = self.packages.${pkgs.system}.${name};
   in {
-    name = package.package.filename;
-    path = package.image;
-    __metadata = package.package.metadata;
+    name = imgSet.package.filename;
+    path = imgSet.image;
+    __metadata = imgSet.package.metadata;
   };
   mainlist = builtins.attrValues (import ./imgList.nix parser);
   characterList =

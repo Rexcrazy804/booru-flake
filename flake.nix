@@ -29,6 +29,21 @@
           default = import ./all.nix {
               inherit self pkgs;
           };
+
+          getAttrsScript = pkgs.writers.writeNuBin "get_image_expression" /*nu*/ ''
+          # A nushell script for automating the required attrset format in
+          # imgList.nix from any given number of urls
+          def main [...urls: string] {
+            for $url in $urls {
+              let meta = $url | parse --regex '__(.*)_drawn_by_(.*)__(.*)\.(.*)'
+              print $'"($meta.capture2.0)" = helper {'
+              print $'  name = "($meta.capture2.0)";'
+              print $'  url = "($url)";'
+              print $'  hash = "";'
+              print $'};' # just for the sake of it lol
+            }
+          }
+          '';
         }
     );
   };
