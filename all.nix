@@ -16,7 +16,7 @@
   # what is driving me to do this? no clue
   ListFlattener = category: let 
     fullcat = "tag_string_${category}";
-  in lib.lists.flatten (builtins.map (x: lib.splitString " " x.__metadata.${fullcat}) imgList);
+  in lib.lists.flatten (builtins.map (img: lib.splitString " " img.__metadata.${fullcat}) imgList);
 
   characterList = ListFlattener "character";
   artistList = ListFlattener "artist";

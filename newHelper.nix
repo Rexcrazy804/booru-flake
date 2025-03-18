@@ -5,12 +5,37 @@
   jsonHash ? "",
   imgHash ? "",
 }: let
+  # some attributes of the full json change
+  # so this selects only that which do not change
+  filter = builtins.concatStringsSep "," [
+    "id"
+    "created_at"
+    "uploader_id"
+    "source"
+    "md5"
+    "image_width"
+    "image_height"
+    "tag_string"
+    "file_ext"
+    "file_size"
+    "pixiv_id"
+    "tag_string_general"
+    "tag_string_character"
+    "tag_string_copyright"
+    "tag_string_artist"
+    "tag_string_meta"
+    "file_url"
+    "large_file_url"
+    "preview_file_url"
+  ];
   jsonResponse = lib.importJSON (fetchurl {
-    url = "https://danbooru.donmai.us/posts/${id}.json";
+    name = "${id}.json";
+    url = "https://danbooru.donmai.us/posts/${id}.json?only=${filter}";
     hash = jsonHash;
   });
 in
   fetchurl {
+    name = "${builtins.toString jsonResponse.id}.${jsonResponse.file_ext}";
     url = jsonResponse.file_url;
     hash = imgHash;
 
