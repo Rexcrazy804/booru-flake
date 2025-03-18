@@ -25,7 +25,7 @@
       pkgs: let
         helper = import ./helper.nix pkgs;
       in
-        pkgs.lib.recursiveUpdate (import ./imgList.nix helper) {
+        pkgs.lib.recursiveUpdate (import ./imgList.nix helper) rec {
           default = import ./all.nix {
               inherit self pkgs;
           };
@@ -45,6 +45,15 @@
             }
           }
           '';
+
+          new_helper = pkgs.callPackage ./newHelper.nix {
+            id = "9013002";
+            jsonHash = "sha256-Ov7AdRkHNVdQjYGEq7JDe22mqXGLUSR0KHX7KePnTho=";
+            imgHash = "sha256-C4dOwl/5q14CGAxXmARfmRkuyi5DdDAIjFQLKDaZUjc=";
+          };
+
+          # for debugging purposes only
+          # __echo = builtins.trace new_helper.metadata.tag_string_character pkgs.hello;
         }
     );
   };
