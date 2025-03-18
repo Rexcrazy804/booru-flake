@@ -14,7 +14,7 @@ nix build github:Rexcrazy804/booru-flake
 > **I can guarantee that there is nothing NSFW**
 at worst there is one mildly suggestive kokomi picture
 
-images available in the newImgList can be accessed with their corresponding
+Images available in the newImgList can be accessed with their corresponding
 id's
 ```sh
 nix build github:Rexcrazy804/booru-flake#"6073289"
@@ -24,7 +24,21 @@ Their metadata in the form of a nix Attrset following the danbooru api json
 spec is passthru'd from the package and accessible with `"<imgid>".metadata`
 
 Additionally a `fetchBooruImg` package is provided by the flake for overriding
-with custom id and corresponding hashes
+with custom id and corresponding hashes for instance
+```sh
+nix run github:Rexcrazy804/booru-flake#getAttrsScript -- 5931821 8086139
+# will output the following to stdout [just pipe it to wl-copy or save to file]
+# "5931821" = helper {
+#   id = "5931821";
+#   jsonHash = "sha256-OIkZVByQZucTjMDSsj9MNgAMsa1eF75+uPB1ELObK38=";
+#   imgHash = "sha256-w1blRj2GXbl18eAgokb5o7NGbN7+mUSESOqGDud1ofc=";
+# };
+# "8086139" = helper {
+#   id = "8086139";
+#   jsonHash = "sha256-NVu4+qxgdu/YyuUkwHEj6gJJ0KW29UoiW+sUkWFIwqA=";
+#   imgHash = "sha256-lZoNJPNqrl3PxYDl+anP2vYhCXYbRGGJi7zZxMwb490=";
+# };
+```
 
 ## Credits
 - [Danbooru](https://danbooru.donmai.us/) great image board if you can ignore
