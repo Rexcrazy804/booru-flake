@@ -137,34 +137,4 @@ helper: {
     jsonHash = "sha256-Ub4H0emzZyow2Re1gmyjulM8ZUGis64nM6dZAoZhfyY=";
     imgHash = "sha256-vkIDSBuspH3HY5noesMNtO1/XXkPOiLb9zyqv73qyF8=";
   };
-  "8815169" = helper {
-    id = "8815169";
-    jsonHash = "sha256-vLQGqo2NI6Ql05ohuzQcfXG+L4SQj5B6q0l5IcNXdCc=";
-    imgHash = "sha256-OP2twK8OzjBY8lFMjNaB8AaPRw3A5kCOihTa8o80V3I=";
-  };
-  "8923637" = helper {
-    id = "8923637";
-    jsonHash = "sha256-KXUf2oJ0+hkQg9uyXZ1ZKJs4weqs8b7e0iWG6LMO06s=";
-    imgHash = "sha256-XAIAw42Gx11ialHOAI3BPE8zIhQIFN9kaKIk2QCrH6c=";
-  };
-  "8928533" = helper {
-    id = "8928533";
-    jsonHash = "sha256-WUiC0F/zh6FpXMpxSR3I+q+SKjl2J64pXG9PqCZL+SQ=";
-    imgHash = "sha256-zsmkPYfrpk6qoXCpPXsQ5BNYv30zk21wJNisTwdKHJc=";
-  };
-  "8866760" = helper {
-    id = "8866760";
-    jsonHash = "sha256-pIMtwzH+H+4kavyya7MD+5Lll5WXM14YqS0oMSkTlmc=";
-    imgHash = "sha256-oQeiTtFpc9mtAq8lOjMx+h3VL1Dl/2QkEV/clEbnXvg=";
-  };
-  "8923627" = helper {
-    id = "8923627";
-    jsonHash = "sha256-oE6wSIFHDhFGL9ugzRh1MQje+bdGD2zhGDc8G79GFdc=";
-    imgHash = "sha256-xcO6D0IRNlHaBJD+Cd0u3LvjJA4HqA2Gomup3KYaG9I=";
-  };
-  "7156125" = helper {
-    id = "7156125";
-    jsonHash = "sha256-jejyg7mbHLC0dlLWh+ezD/blA1NTM3K1N3s4Ques4LE=";
-    imgHash = "sha256-u5dFzfi4Y5K6Q/j5/sLss0Cy8qjyi+pAWXjape0051o=";
-  };
 }
