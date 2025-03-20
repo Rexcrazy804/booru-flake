@@ -57,7 +57,8 @@
 
   danbooru = {
     characters = characterFolders;
-    artists = artistFolders;
+    # don't waste time building artists folder
+    # artists = artistFolders;
     copyrights = copyrightFolders;
   };
 in
