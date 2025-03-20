@@ -31,8 +31,10 @@
       in
         [image] ++ oldList;
     };
+
     getNewlist = origlist: list: lib.attrsets.mergeAttrsList (builtins.map (mapElem origlist) list);
-    charlist' = getNewlist charlist imageCharList;
+    # prevents build failure when original characters have not character_tag
+    charlist' = lib.optionalAttrs (imageCharList != [""]) (getNewlist charlist imageCharList);
     artistlist' = getNewlist artistlist imageArtistList;
     copyrightlist' = getNewlist copyrightlist imageCopyrightList;
   in
@@ -55,10 +57,10 @@
   artistFolders = builtins.attrValues (farmMap finalList.artistlist);
   copyrightFolders = builtins.attrValues (farmMap finalList.copyrightlist);
 
+  favArtists = ["elodeas" "yoneyama_mai"];
   danbooru = {
     characters = characterFolders;
-    # don't waste time building artists folder
-    # artists = artistFolders;
+    artists = builtins.filter (artist: builtins.elem artist.name favArtists) artistFolders;
     copyrights = copyrightFolders;
   };
 in
