@@ -13,14 +13,17 @@
   };
   imgList = builtins.attrValues (import ./newImgList.nix parser);
 
-  # what is driving me to do this? no clue
-  ListFlattener = category: let 
-    fullcat = "tag_string_${category}";
-  in lib.lists.flatten (builtins.map (img: lib.splitString " " img.__metadata.${fullcat}) imgList);
-
-  characterList = ListFlattener "character";
-  artistList = ListFlattener "artist";
-  copyrightList = ListFlattener "copyright";
+  getCategoryList = category: let
+    # this basically takes an image and returns a list of its tag_string_{$category} metadata
+    # i.e say you have image.metadata.tag_string_character = "lisa_(genshin_impact) barbara_(genshin_impact)"
+    # this function will convert it into ["lisa_(genshin_impact)" "barbara_(genshin_impact)"]
+    imgCategories = img: lib.splitString " " img.__metadata.${"tag_string_${category}"};
+  in
+    lib.pipe imgList [
+      (builtins.map imgCategories)
+      (lib.lists.flatten)
+      (lib.lists.unique)
+    ];
 
   # to explain this fuckery to myself in the future first the final output of
   # this is list of character folders with links to each img from the img list
@@ -29,45 +32,16 @@
   # this would have been so much easier to understand if we had pipe operator
   # out of experimental
   # could make this a function but fuck it
-  characterFolders =
-    builtins.map (character: rec {
-      name = character;
+  getCategoryFolders = category:
+    builtins.map (element: rec {
+      name = element;
       path = let
-        filter = img: builtins.elem character (lib.splitString " " img.__metadata.tag_string_character);
+        filter = img: builtins.elem element (lib.splitString " " img.__metadata.${"tag_string_${category}"});
       in
         pkgs.linkFarm name (builtins.filter filter imgList);
-    })
-    characterList;
-  artistFolders =
-    builtins.map (artist: rec {
-      name = artist;
-      path = let
-        filter = img: builtins.elem artist (lib.splitString " " img.__metadata.tag_string_artist);
-      in
-        pkgs.linkFarm name (builtins.filter filter imgList);
-    })
-    artistList;
-  copyrightFolders =
-    builtins.map (copyright: rec {
-      name = copyright;
-      path = let
-        filter = img: builtins.elem copyright (lib.splitString " " img.__metadata.tag_string_copyright);
-      in
-        pkgs.linkFarm name (builtins.filter filter imgList);
-    })
-    copyrightList;
+    }) (getCategoryList category);
 in
-  pkgs.linkFarm "Danbooru" [
-    {
-      name = "artists";
-      path = pkgs.linkFarm "artists" artistFolders;
-    }
-    {
-      name = "characters";
-      path = pkgs.linkFarm "characters" characterFolders;
-    }
-    {
-      name = "copyrights";
-      path = pkgs.linkFarm "characters" copyrightFolders;
-    }
-  ]
+  pkgs.linkFarm "Danbooru" (builtins.map (category: rec {
+    name = "${category}s";
+    path = pkgs.linkFarm name (getCategoryFolders category);
+  }) ["artist" "character" "copyright"])
