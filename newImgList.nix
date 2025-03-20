@@ -137,4 +137,49 @@ helper: {
     jsonHash = "sha256-Ub4H0emzZyow2Re1gmyjulM8ZUGis64nM6dZAoZhfyY=";
     imgHash = "sha256-vkIDSBuspH3HY5noesMNtO1/XXkPOiLb9zyqv73qyF8=";
   };
+  "7275296" = helper {
+    id = "7275296";
+    jsonHash = "sha256-vyC4pH86OtDzNLwmS6p17pj2S1qEV/fH6O+Bh+3oAUQ=";
+    imgHash = "sha256-6pXu45jEpxkRVlHwZbe7+HFR1ZzxLfE9IOdKNgtJuN4=";
+  };
+  "8591266" = helper {
+    id = "8591266";
+    jsonHash = "sha256-Bi12IUjHjDn1gtSaVX1GlqYZmF1+WKEkCJ3GRqLNeRA=";
+    imgHash = "sha256-MCw6U+ieFkypqfoZS1xyXc/3D4wPUWYOiko/7r6rEm4=";
+  };
+  "9005608" = helper {
+    id = "9005608";
+    jsonHash = "sha256-3uGG11yUjAlp6DQzkETyOnHVoygNyptudKVZ8QrWQNQ=";
+    imgHash = "sha256-8clwkRJEWKqbeJYiGn6OjVShN9q8ATOSSYgE9P0DJ+8=";
+  };
+  "8241196" = helper {
+    id = "8241196";
+    jsonHash = "sha256-IBozXgyck24M9bcq3yPDoRHvcb2eUCosTP3xkNX0cV0=";
+    imgHash = "sha256-o5MLdZ4k7BxmC+VkWuQ956zJ0lvt3rn7X+ycNTRIQlU=";
+  };
+  "6531325" = helper {
+    id = "6531325";
+    jsonHash = "sha256-Kp62RZ5u4CertJH/mau/LBLSmeb9LKnK9jIWukxuzQY=";
+    imgHash = "sha256-DHxZzXgR5BhNPPUTV/27Ezmw/DT99q9N9A7bV7C9pMs=";
+  };
+  "8390291" = helper {
+    id = "8390291";
+    jsonHash = "sha256-2n6V4tG94Ui2928LxkHUesF+VLRgQipWnbHZpzA9LJA=";
+    imgHash = "sha256-VRTtq9D2gBRoqvtn0bQsakqDqMtCuO0zltGGxkG6TZE=";
+  };
+  "7680288" = helper {
+    id = "7680288";
+    jsonHash = "sha256-baJOrKDGCp5Mhz8baMEWj6ugg/Gi0/cYP4CWxDEbozI=";
+    imgHash = "sha256-7BTTTEckBpUz5GJw+QUleXzXourHTY7L73NJGx0OIfs=";
+  };
+  "5562482" = helper {
+    id = "5562482";
+    jsonHash = "sha256-Js6+ES2R5acvSNoIMDwv/MQpuKuZBL6NQfebdc4KrXo=";
+    imgHash = "sha256-2pjT8tH6minvTtooWBmqrMDFxw/Rs+K0Xpcm2JjOqy0=";
+  };
+  "5628441" = helper {
+    id = "5628441";
+    jsonHash = "sha256-LECXCP5qXansUCtrEM69N2fOrYb9G+62LQjzbNLV5e0=";
+    imgHash = "sha256-aekJqwy7zJxJeNQzA1bATVrLxcZu0T9Dw9+8llTLaNA=";
+  };
 }
