@@ -242,4 +242,34 @@ helper: {
     jsonHash = "sha256-ZQ8uP9nPFllIm/FB2q6YuRwA6m2ydaIidJui3NbUjPg=";
     imgHash = "sha256-osxmgBtSbecPhufiYRB8kevhMke1wnBMLUEYxGLHkTA=";
   };
+  "7690649" = helper {
+    id = "7690649";
+    jsonHash = "sha256-0Y/ZDc2F6WTg1PHo0A/FEvM1Pl/xp9ccVkm8ZMucsWA=";
+    imgHash = "sha256-yDG5VcWcJs3bJ6OMJ/ddtD2J7Fjc/PregPDvjX65Pzw=";
+  };
+  "7171260" = helper {
+    id = "7171260";
+    jsonHash = "sha256-kAhytF58A0I1mNCULhlXy4sp/pJTwSu19u1h8OEtAH4=";
+    imgHash = "sha256-qq4K1ZZWmO9UYjRMy7oWwwXRap7E0ggDH9ZmeL13Pfo=";
+  };
+  "7248761" = helper {
+    id = "7248761";
+    jsonHash = "sha256-T8hx+6+G0hm4tfod5bCS+yi5NHX4VadeGPz28tgzxI0=";
+    imgHash = "sha256-bHqnr/PcfR5YVsuKJRZS8Zljr+qP02ujbUhgV5SWN/I=";
+  };
+  "7861939" = helper {
+    id = "7861939";
+    jsonHash = "sha256-qrTVlT3zLqrw4ZVgGKuTbVa8jJHV5hfn5mhV8PF5oQk=";
+    imgHash = "sha256-ZItfyZQJH86a5DucDD5AB2OUEvinPGC/J8ZCiHWAMCc=";
+  };
+  "7583054" = helper {
+    id = "7583054";
+    jsonHash = "sha256-EEoaVaLOZuSJPgc6iy3Mwq1f6EGrrooOGfizGVjnWEk=";
+    imgHash = "sha256-sflUuCb8CtaUsjMdbwp16BOZKeRD1lmDTvWZow0+PG4=";
+  };
+  "6991501" = helper {
+    id = "6991501";
+    jsonHash = "sha256-4z+RHuvJJQ2/hAzsdE4tJDcyI62JHzmSYNTfBCz2HVM=";
+    imgHash = "sha256-8ZD6fdvZShrrR+KHb7fXasuIJMq5L3gTudXT6UzPObg=";
+  };
 }
