@@ -28,11 +28,12 @@
     "large_file_url"
     "preview_file_url"
   ];
-  jsonResponse = lib.importJSON (fetchurl {
+  rawjsonResponse = fetchurl {
     name = "${id}.json";
     url = "https://danbooru.donmai.us/posts/${id}.json?only=${filter}";
     hash = jsonHash;
-  });
+  };
+  jsonResponse = lib.importJSON rawjsonResponse;
 in
   fetchurl {
     name = "${builtins.toString jsonResponse.id}.${jsonResponse.file_ext}";
@@ -42,5 +43,6 @@ in
     passthru = {
       # refer to danbooru's api for json spec
       metadata = jsonResponse;
+      raw_metadata = rawjsonResponse;
     };
   }
