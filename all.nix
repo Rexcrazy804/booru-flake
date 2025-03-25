@@ -18,18 +18,18 @@
   } @ maps: let
     inherit (lib) splitString;
     inherit (lib.attrsets) foldAttrs;
-    image = let
-      package = builtins.elemAt imgList index;
-      # takes say a list of characters and returns a list of AttrSets like so:
-      # [{<character1>=[package];} {<character2>=[package];}]
-      makeMap = list: (builtins.map (elem: {${elem} = [package];}) list);
-    in {
-      characters = makeMap (splitString " " package.metadata.tag_string_character);
-      artists = makeMap (splitString " " package.metadata.tag_string_artist);
-      copyrights = makeMap (splitString " " package.metadata.tag_string_copyright);
-    };
+    package = builtins.elemAt imgList index;
 
+    # takes say a list of characters and returns a list of AttrSets like so:
+    # [{<character1>=[package];} {<character2>=[package];}]
+    map' = list: (builtins.map (elem: {${elem} = [package];}) list);
     fold' = foldAttrs (item: acc: item ++ acc) [];
+
+    image = {
+      characters = map' (splitString " " package.metadata.tag_string_character);
+      artists = map' (splitString " " package.metadata.tag_string_artist);
+      copyrights = map' (splitString " " package.metadata.tag_string_copyright);
+    };
   in
     if index < imgListLen
     then
@@ -43,7 +43,10 @@
 
   categoryMaps = generateMaps {};
   farmMap = builtins.mapAttrs (key: value: {
-    name = if key == "" then "unknown" else key;
+    name =
+      if key == ""
+      then "unknown"
+      else key;
     path = pkgs.linkFarmFromDrvs key value;
   });
 
@@ -51,9 +54,9 @@
   characterFolders = builtins.attrValues (farmMap categoryMaps.characterMap);
   artistFolders = let
     favArtists = ["elodeas" "yoneyama_mai"];
-    filter = list: builtins.filter (set: builtins.elem set.name favArtists) list;
+    filter' = list: builtins.filter (set: builtins.elem set.name favArtists) list;
   in
-    filter (builtins.attrValues (farmMap categoryMaps.artistMap));
+    filter' (builtins.attrValues (farmMap categoryMaps.artistMap));
   # needa link this inplace to avoid getting gc'd and rebuilding everything
   JsonFolder = pkgs.linkFarmFromDrvs "jsons" (builtins.map (img: img.raw_metadata) imgList);
 in
