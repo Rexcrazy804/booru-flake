@@ -6,6 +6,7 @@ This is primarily just a flake that I created to put my own nix skills to the
 test. Making a module out of this will be pretty easy. Maybe I will do that
 next. If anyone is interested in doing it feel very welcome to do so :D
 
+## Accessing Folders
 The default package will download every image listed in the imglist and auto
 categorize them 
 ```sh
@@ -14,6 +15,25 @@ nix build github:Rexcrazy804/booru-flake
 > **I can guarantee that there is nothing NSFW**
 at worst there is one mildly suggestive kokomi picture
 
+You may additionally access specific character or copyright or artist folders
+with the following syntax
+```sh
+# builds all images of void_0 into result/
+nix build .#default.entries.Artists.entries.void_0
+
+# builds all images of sangonomiya_kokomi
+nix build .#default.entries.Characters.entries.sangonomiya_kokomi
+
+# builds all images belonging to genshin_impact
+nix build .#default.entries.Copyrights.entries.genshin_impact
+```
+additionally if you are unsure what is valid within each entry just place a `.` after the 
+entries attr like so to get a nix error spitting the whole list
+```
+nix build .#default.entries.Copyrights.entries.
+```
+
+## Accessing images by ID
 Images available in the newImgList can be accessed with their corresponding
 id's
 ```sh
@@ -23,6 +43,7 @@ nix build github:Rexcrazy804/booru-flake#"6073289"
 Their metadata in the form of a nix Attrset following the danbooru api json
 spec is passthru'd from the package and accessible with `"<imgid>".metadata`
 
+## Generating nix code for imgList using `getAttrsScript`
 Additionally a `fetchBooruImg` package is provided by the flake for overriding
 with custom id and corresponding hashes for instance
 ```sh
