@@ -382,4 +382,9 @@ helper: {
     jsonHash = "sha256-m2cPseFfY+6x0lUXeqKEcog+HMquvnpPKtpNEhm6Eus=";
     imgHash = "sha256-91i/r0B0qvwy6Wt5aO2FQujCYqlxyroRM2i1SKJfe18=";
   };
+  "9067689" = helper {
+    id = "9067689";
+    jsonHash = "sha256-3eBZkN+QYAK4gbKM7jhp7I9lufOlIoZsVxV9IOxXPwY=";
+    imgHash = "sha256-VicG0EOdAEj5Q8UrEiJMs2Y8SCZlasncWSsiKb2oiSk=";
+  };
 }
