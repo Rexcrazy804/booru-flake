@@ -1,11 +1,9 @@
 {
-  self,
   pkgs,
+  lib,
+  fetchBooruImage,
 }: let
-  inherit (pkgs) lib system;
-  parser = {id, ...}: self.packages.${system}.${id};
-  # A list of all images
-  imgList = builtins.attrValues (import ./newImgList.nix parser);
+  imgList = builtins.map (x: fetchBooruImage x) (import ./newImgList.nix);
   imgListLen = lib.lists.length imgList;
 
   # CharacterMap (and others) follow the following format

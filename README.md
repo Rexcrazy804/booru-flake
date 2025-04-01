@@ -13,7 +13,7 @@ categorize them
 nix build github:Rexcrazy804/booru-flake
 ```
 > **I can guarantee that there is nothing NSFW**
-at worst there is one mildly suggestive kokomi picture
+at worst there is **one** mildly suggestive kokomi picture
 
 You may additionally access specific character or copyright or artist folders
 with the following syntax
@@ -49,16 +49,16 @@ with custom id and corresponding hashes for instance
 ```sh
 nix run github:Rexcrazy804/booru-flake#getAttrsScript -- 5931821 8086139
 # will output the following to stdout [just pipe it to wl-copy or save to file]
-# "5931821" = helper {
+# {
 #   id = "5931821";
 #   jsonHash = "sha256-OIkZVByQZucTjMDSsj9MNgAMsa1eF75+uPB1ELObK38=";
 #   imgHash = "sha256-w1blRj2GXbl18eAgokb5o7NGbN7+mUSESOqGDud1ofc=";
-# };
-# "8086139" = helper {
+# }
+# {
 #   id = "8086139";
 #   jsonHash = "sha256-NVu4+qxgdu/YyuUkwHEj6gJJ0KW29UoiW+sUkWFIwqA=";
 #   imgHash = "sha256-lZoNJPNqrl3PxYDl+anP2vYhCXYbRGGJi7zZxMwb490=";
-# };
+# }
 ```
 
 ## Credits

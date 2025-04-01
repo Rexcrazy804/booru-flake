@@ -23,13 +23,16 @@
     packages = forAllSystems (
       pkgs: let
         new_helper = pkgs.callPackage ./newHelper.nix;
+        images = pkgs.lib.attrsets.mergeAttrsList (
+          builtins.map (x: {${x.id} = new_helper x;}) (import ./newImgList.nix)
+        );
       in
-        pkgs.lib.recursiveUpdate (import ./newImgList.nix new_helper) {
-          default = import ./all.nix {
-            inherit self pkgs;
+        pkgs.lib.recursiveUpdate images ({
+          default = pkgs.callPackage ./all.nix {
+            fetchBooruImage = new_helper;
           };
 
-          getAttrsScript = pkgs.writers.writeNuBin "get_image_expression" /*nu*/ ''
+          getAttrsScript = pkgs.writers.writeNuBin "get_image_expression" /* nu */ ''
             # A nushell script for automating the required attrset format in
             # imgList.nix from any given number of ids (easily pipe to wl-copy :)
             def main [...ids: string] {
@@ -42,18 +45,15 @@
                 let jsonHash = nix hash convert --hash-algo sha256 --to sri (nix-prefetch-url --name $"($id).json" $jsonUrl)
                 let imgHash = nix hash convert --hash-algo sha256 --to sri (nix-prefetch-url  $imgUrl)
 
-                print $'"($id)" = helper {'
+                print $'{'
                 print $'  id = "($id)";'
                 print $'  jsonHash = "($jsonHash)";'
                 print $'  imgHash = "($imgHash)";'
-                print $'};' # just for the sake of it lol
+                print $'}'
               }
             }
           '';
-
-          # you have to override this package with id, jsonHash, and imgHash
-          fetchBooruImage = new_helper {};
-        }
+        })
     );
   };
 }
