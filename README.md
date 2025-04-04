@@ -5,7 +5,7 @@ danbooru given a list of img id (and two hashes) (refer to the newImgList.nix).
 This is primarily just a flake that I created to put my own nix skills to the
 test. Making a module out of this will be pretty easy. Maybe I will do that
 next. If anyone is interested in doing it feel very welcome to do so :D
-
+> previews are available in [preview.md](preview.md) inspired by [orangci/walls-catppuccin](https://github.com/orangci/walls-catppuccin-mocha)
 ## Accessing Folders
 The default package will download every image listed in the imglist and auto
 categorize them 
