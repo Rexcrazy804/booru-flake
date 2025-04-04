@@ -48,6 +48,44 @@
     path = pkgs.linkFarmFromDrvs key value;
   });
 
+  writePreview = let
+    listfn = {
+      list,
+      output ? [],
+    }:
+      if ((builtins.length list) > 0)
+      then let
+        firstFour = lib.lists.take 4 list;
+        output' = lib.pipe firstFour [
+          (builtins.map (img: "![${img.name}](${img.metadata.preview_file_url})"))
+          (builtins.concatStringsSep " | ")
+          (x: "| ${x} |")
+        ];
+      in
+        listfn {
+          list = (lib.lists.drop 4 list);
+          output = output ++ [output'];
+        }
+      else (builtins.concatStringsSep "\n" output);
+
+    characterPara = lib.pipe categoryMaps.characterMap [
+      (builtins.mapAttrs (
+        charName: charImgs: ''
+          # ${charName}
+          | Column 1 | Column 2 | Column 3 | Column 4 |
+          |---------|---------|---------|---------|
+          ${listfn {list = charImgs;}}
+        ''
+      ))
+      (builtins.attrValues)
+      (builtins.concatStringsSep "\n")
+    ];
+  in
+    pkgs.writeText "preview.md" ''
+      # Preview of all images per character
+      ${characterPara}
+    '';
+
   copyrightFolders = builtins.attrValues (farmMap categoryMaps.copyrightMap);
   characterFolders = builtins.attrValues (farmMap categoryMaps.characterMap);
   artistFolders = let
@@ -74,5 +112,9 @@ in
     {
       name = "Jsons";
       path = JsonFolder;
+    }
+    {
+      name = "preview.md";
+      path = writePreview;
     }
   ]
