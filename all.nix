@@ -69,19 +69,13 @@
         }
       else (builtins.concatStringsSep "\n" output);
 
-    characterPara = lib.pipe categoryMaps.characterMap [
-      (builtins.mapAttrs (
-        charName: charImgs: "${listfn {list = charImgs;}}"
-      ))
-      (builtins.attrValues)
-      (builtins.concatStringsSep "\n")
-    ];
+    imgMd = listfn {list = imgList;};
   in
     pkgs.writeText "preview.md" ''
       # Preview of all images per character
       | Column 1 | Column 2 | Column 3 | Column 4 |
       |---------|---------|---------|---------|
-      ${characterPara}
+      ${imgMd}
     '';
 
   copyrightFolders = builtins.attrValues (farmMap categoryMaps.copyrightMap);
