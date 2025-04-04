@@ -44,8 +44,9 @@ Their metadata in the form of a nix Attrset following the danbooru api json
 spec is passthru'd from the package and accessible with `"<imgid>".metadata`
 
 ## Generating nix code for imgList using `getAttrsScript`
-Additionally a `fetchBooruImg` package is provided by the flake for overriding
-with custom id and corresponding hashes for instance
+Additionally a `getAttrsScript` script is provided by the flake for auto
+gneerating the nix code for adding a new entry in the imgList. It accepts any
+number of space seperated danbooru IDS
 ```sh
 nix run github:Rexcrazy804/booru-flake#getAttrsScript -- 5931821 8086139
 # will output the following to stdout [just pipe it to wl-copy or save to file]
