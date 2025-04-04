@@ -58,24 +58,24 @@
       then let
         firstFour = lib.lists.take takeCount list;
         output' = lib.pipe firstFour [
-          (builtins.map (img: "![${img.name}](${img.metadata.preview_file_url})"))
+          (builtins.map (img: let
+            met = img.metadata;
+          in "![${img.name}](${met.preview_file_url})<br>[${img.name}](${met.file_url})"))
           (builtins.concatStringsSep " | ")
           (x: "| ${x} |")
         ];
       in
         listfn {
-          list = (lib.lists.drop takeCount list);
+          list = lib.lists.drop takeCount list;
           output = output ++ [output'];
         }
       else (builtins.concatStringsSep "\n" output);
-
-    imgMd = listfn {list = imgList;};
   in
     pkgs.writeText "preview.md" ''
       # Preview of all images per character
       | Column 1 | Column 2 | Column 3 | Column 4 |
       |---------|---------|---------|---------|
-      ${imgMd}
+      ${listfn {list = imgList;}}
     '';
 
   copyrightFolders = builtins.attrValues (farmMap categoryMaps.copyrightMap);
