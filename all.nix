@@ -71,10 +71,7 @@
 
     characterPara = lib.pipe categoryMaps.characterMap [
       (builtins.mapAttrs (
-        charName: charImgs:
-        ''
-          ${listfn {list = charImgs;}}
-        ''
+        charName: charImgs: "${listfn {list = charImgs;}}"
       ))
       (builtins.attrValues)
       (builtins.concatStringsSep "\n")
