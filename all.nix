@@ -72,7 +72,7 @@
       else (builtins.concatStringsSep "\n" output);
   in
     pkgs.writeText "preview.md" ''
-      # Preview of all images per character
+      # Preview of all images
       | Column 1 | Column 2 | Column 3 | Column 4 |
       |---------|---------|---------|---------|
       ${listfn {list = imgList;}}
