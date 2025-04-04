@@ -58,7 +58,7 @@
       then let
         firstFour = lib.lists.take takeCount list;
         output' = lib.pipe firstFour [
-          (builtins.map (img: "![${img.name}](${img.metadata.file_url})"))
+          (builtins.map (img: "![${img.name}](${img.metadata.preview_file_url})"))
           (builtins.concatStringsSep " | ")
           (x: "| ${x} |")
         ];
@@ -71,24 +71,9 @@
 
     characterPara = lib.pipe categoryMaps.characterMap [
       (builtins.mapAttrs (
-        charName: charImgs: let 
-          charImgCount = builtins.length charImgs;
-          takeCount = if charImgCount < 4 then 
-            charImgCount
-          else 4;
-          range = lib.lists.range 1 takeCount;
-          columnString = lib.pipe range [
-            (builtins.map (x: "Column ${builtins.toString x}"))
-            (builtins.concatStringsSep " | ")
-          ];
-          columndivider = lib.pipe range [
-            (builtins.map (x: "-----------"))
-            (builtins.concatStringsSep "|")
-          ];
-        in ''
-          # ${charName}
-          ${builtins.concatStringsSep "\n" [columnString columndivider]}
-          ${listfn {list = charImgs; inherit takeCount;}}
+        charName: charImgs:
+        ''
+          ${listfn {list = charImgs;}}
         ''
       ))
       (builtins.attrValues)
@@ -97,6 +82,8 @@
   in
     pkgs.writeText "preview.md" ''
       # Preview of all images per character
+      | Column 1 | Column 2 | Column 3 | Column 4 |
+      |---------|---------|---------|---------|
       ${characterPara}
     '';
 
