@@ -53,7 +53,7 @@
   copyrightFolders = builtins.attrValues (farmMap categoryMaps.copyrightMap);
   characterFolders = builtins.attrValues (farmMap categoryMaps.characterMap);
   artistFolders = let
-    favArtists = ["elodeas" "yoneyama_mai" "void_0"];
+    favArtists = ["elodeas" "yoneyama_mai" "void_0" "morncolour"];
     filter' = list: builtins.filter (set: builtins.elem set.name favArtists) list;
   in
     filter' (builtins.attrValues (farmMap categoryMaps.artistMap));
