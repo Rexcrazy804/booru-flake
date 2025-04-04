@@ -60,7 +60,7 @@
         output' = lib.pipe firstFour [
           (builtins.map (img: let
             met = img.metadata;
-          in "![${img.name}](${met.preview_file_url})<br>[${img.name}](${met.file_url})"))
+          in "[![${img.name}](${met.preview_file_url})](${met.file_url})"))
           (builtins.concatStringsSep " | ")
           (x: "| ${x} |")
         ];
