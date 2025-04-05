@@ -1,6 +1,6 @@
 # Degeneracy at its finest xD
 A nixos flake that automatically downloads, and categorizes images from
-danbooru given a list of img id (and two hashes) (refer to the newImgList.nix).
+danbooru given a list of [img IDs](nix/imgList.nix)
 
 This is primarily just a flake that I created to put my own nix skills to the
 test. Making a module out of this will be pretty easy. Maybe I will do that
@@ -16,8 +16,9 @@ nix build github:Rexcrazy804/booru-flake
 at worst there is **one** mildly suggestive kokomi picture
 
 You may additionally access specific character or copyright or artist folders
-with the following syntax
+with the following syntax: 
 ```sh
+# Replace .# with github:Rexcrazy804/booru-flake#
 # builds all images of void_0 into result/
 nix build .#default.entries.Artists.entries.void_0
 
