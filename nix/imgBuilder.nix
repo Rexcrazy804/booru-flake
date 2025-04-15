@@ -13,6 +13,7 @@
     "uploader_id"
     "source"
     "md5"
+    "rating"
     "image_width"
     "image_height"
     "tag_string"
