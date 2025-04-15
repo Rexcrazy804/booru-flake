@@ -1,19 +1,19 @@
 # Degeneracy at its finest xD
+> previews are available in [preview.md](preview.md) inspired by [orangci/walls-catppuccin](https://github.com/orangci/walls-catppuccin-mocha)
+
 A nixos flake that automatically downloads, and categorizes images from
 danbooru given a list of [img IDs](nix/imgList.nix)
 
 This is primarily just a flake that I created to put my own nix skills to the
 test. Making a module out of this will be pretty easy. Maybe I will do that
 next. If anyone is interested in doing it feel very welcome to do so :D
-> previews are available in [preview.md](preview.md) inspired by [orangci/walls-catppuccin](https://github.com/orangci/walls-catppuccin-mocha)
+
 ## Accessing Folders
 The default package will download every image listed in the imglist and auto
-categorize them 
+categorize them
 ```sh
 nix build github:Rexcrazy804/booru-flake
 ```
-> **I can guarantee that there is nothing NSFW**
-at worst there is **one** mildly suggestive kokomi picture
 
 You may additionally access specific character or copyright or artist folders
 with the following syntax: 
