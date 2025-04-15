@@ -1,5 +1,12 @@
-{writers}:
-writers.writeNuBin "get_image_expression" /*nu*/ ''
+{
+  writers,
+  nix,
+}:
+writers.writeNuBin "get_image_expression"
+/*
+nu
+*/
+''
   # A nushell script for automating the required attrset format in
   # imgList.nix from any given number of ids (easily pipe to wl-copy :)
   def main [...ids: string] {
@@ -9,8 +16,8 @@ writers.writeNuBin "get_image_expression" /*nu*/ ''
       let jsonUrl = $"https://danbooru.donmai.us/posts/($id).json($only)"
       let imgUrl = curl $jsonUrl | from json | get file_url
 
-      let jsonHash = nix hash convert --hash-algo sha256 --to sri (nix-prefetch-url --name $"($id).json" $jsonUrl)
-      let imgHash = nix hash convert --hash-algo sha256 --to sri (nix-prefetch-url  $imgUrl)
+      let jsonHash = ${nix}/bin/nix hash convert --hash-algo sha256 --to sri (nix-prefetch-url --name $"($id).json" $jsonUrl)
+      let imgHash = ${nix}/bin/nix hash convert --hash-algo sha256 --to sri (nix-prefetch-url  $imgUrl)
 
       print $'{'
       print $'  id = "($id)";'
