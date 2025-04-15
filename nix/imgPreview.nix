@@ -21,10 +21,14 @@
         output = output ++ [output'];
       }
     else (builtins.concatStringsSep "\n" output);
+
+  # list of images that are too sus for the previews
+  filteredIds = [ 6351551  6983927 9044041];
+  filteredImgs = builtins.filter (img: !(builtins.elem img.metadata.id filteredIds)) imgList;
 in
   writeText "preview.md" /*markdown*/ ''
     # Preview of all images
     | Column 1 | Column 2 | Column 3 | Column 4 |
-    |---------|---------|---------|---------|
-    ${imgListToTable {list = imgList;}}
+    |----------|----------|----------|----------|
+    ${imgListToTable {list = filteredImgs;}}
   ''
