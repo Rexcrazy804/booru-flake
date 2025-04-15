@@ -21,10 +21,11 @@
         output = output ++ [output'];
       }
     else (builtins.concatStringsSep "\n" output);
+  filteredImgs = builtins.filter (img: img.metadata.rating == "g") imgList;
 in
   writeText "preview.md" /*markdown*/ ''
     # Preview of all images
     | Column 1 | Column 2 | Column 3 | Column 4 |
     |---------|---------|---------|---------|
-    ${imgListToTable {list = imgList;}}
+    ${imgListToTable {list = filteredImgs;}}
   ''
