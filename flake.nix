@@ -31,6 +31,13 @@
           # ^ recursive update to let us call .#"<imgID>" directly
           default = pkgs.callPackage ./nix/all.nix {inherit imgBuilder;};
           getAttrsScript = pkgs.callPackage ./nix/getAttrsScript.nix {};
+
+          # illustrates how you can crop images (maybe make this a function?)
+          cropper = let 
+              image = images."7472531";
+            in pkgs.runCommandLocal "croped-${image.name}" {} ''
+            ${pkgs.imagemagick}/bin/magick ${image} -crop 3280x1845+0+1800 - > $out
+          '';
         }
     );
   };
