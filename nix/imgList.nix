@@ -539,4 +539,9 @@
     jsonHash = "sha256-PwCcXhoBFX+OtZRQXAT+JFNJRhcMDwntF8Cw1UNbHI0=";
     imgHash = "sha256-1la6pBjmJ7O9SvaW7zPDfNf8BUMegeedFZQE3lxjGQA=";
   }
+  {
+    id = "9187380";
+    jsonHash = "sha256-oWvRprcOSz4nMDQhbZ0tcF4fzbwa4W4ZBRMg68LrWhY=";
+    imgHash = "sha256-L6/2ROUQlDwLMYCmIDJT8bqz0cPI+v1v38WQd4IWXbQ=";
+  }
 ]
