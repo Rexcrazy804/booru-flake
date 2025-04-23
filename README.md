@@ -1,4 +1,4 @@
-# Degeneracy at its finest xD
+# Purely Functional Image Library
 > previews are available in [preview.md](preview.md) inspired by [orangci/walls-catppuccin](https://github.com/orangci/walls-catppuccin-mocha)
 
 A nixos flake that automatically downloads, and categorizes images from
