@@ -1,3 +1,5 @@
+# TODO find a way to use fixed output derrivations in a way that
+# everything can be prefetched
 [
   {
     id = "7452256";

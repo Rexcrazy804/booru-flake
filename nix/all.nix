@@ -2,8 +2,9 @@
   pkgs,
   lib,
   imgBuilder,
+  imgList',
 }: let
-  imgList = builtins.map (x: imgBuilder x) (import ./imgList.nix);
+  imgList = builtins.map (x: imgBuilder x) imgList';
   imgListLen = lib.lists.length imgList;
 
   # CharacterMap (and others) follow the following format
