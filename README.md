@@ -58,6 +58,7 @@ booru-prefetch 5931821 8086139
 
 ## Accessing the imgList of this repository
 > previews are available in [preview.md](preview.md) inspired by [orangci/walls-catppuccin](https://github.com/orangci/walls-catppuccin-mocha)
+
 > NOTE these are docs for when you expose the imageFolder in your own flake
 
 ### Accessing Folders
