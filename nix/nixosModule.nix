@@ -5,7 +5,7 @@
   ...
 }: let
   inherit (lib) mkEnableOption mkOption;
-  inherit (lib.types) listOf submodule strMatching package nullOr attrsOf;
+  inherit (lib.types) listOf submodule strMatching package nullOr attrsOf str;
 
   imgBuilder = pkgs.callPackage ./imgBuilder.nix;
   imgAttr = submodule {
@@ -27,6 +27,14 @@
       };
     };
   };
+  filtterAttr = {
+    list = mkOption {
+      type = listOf str;
+      default = [];
+      description = "list of tags to filter in the final imageFolder";
+    };
+    invert = mkEnableOption "inverts the behavior of the filter";
+  };
   cfg = config.booru;
 in {
   options.booru = {
@@ -45,6 +53,12 @@ in {
         }
       ];
       description = "A list of imgIds with their hashes";
+    };
+
+    filters = {
+      characters = filtterAttr;
+      artists = filtterAttr;
+      copyrights = filtterAttr;
     };
 
     images = mkOption {
@@ -69,6 +83,7 @@ in {
           pkgs.callPackage ./all.nix {
             inherit imgBuilder;
             imgList' = cfg.imgList;
+            filters = cfg.filters;
           }
         else null;
       description = "The folder containing all the images categorized neatly";
