@@ -2,11 +2,14 @@
   writers,
   nix,
 }:
-writers.writeNuBin "get_image_expression"
+writers.writeNuBin "booru-prefetch"
 /*
 nu
 */
 ''
+  # TODO maybe convert this to bash so that we don't require the installation
+  # of a whole shell for this
+
   # A nushell script for automating the required attrset format in
   # imgList.nix from any given number of ids (easily pipe to wl-copy :)
   def main [...ids: string] {

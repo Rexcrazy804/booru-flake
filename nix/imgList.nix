@@ -1,5 +1,7 @@
 # TODO find a way to use fixed output derrivations in a way that
 # everything can be prefetched
+# once #3 is merged this list will be frozen
+# will be continued and updated on Rexcrazy804/Zaphkiel :>
 [
   {
     id = "7452256";

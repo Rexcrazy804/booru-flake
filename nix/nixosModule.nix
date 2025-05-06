@@ -4,7 +4,7 @@
   config,
   ...
 }: let
-  inherit (lib) mkEnableOption mkOption;
+  inherit (lib) mkEnableOption mkOption mkIf;
   inherit (lib.types) listOf submodule strMatching package nullOr attrsOf str;
 
   imgBuilder = pkgs.callPackage ./imgBuilder.nix;
@@ -88,5 +88,11 @@ in {
         else null;
       description = "The folder containing all the images categorized neatly";
     };
+  };
+
+  config = mkIf cfg.prefetcher.enable {
+    environment.systemPackages = [
+      (pkgs.callPackage ./getAttrsScript.nix {})
+    ];
   };
 }
