@@ -7,7 +7,8 @@ Letting you reference images throughout your nixos configuration with ease
 ```nix
 programs.booru-flake = {
     enable = true;
-    prefetcher.enable = true; # supporting script booru-prefetch for generating below structure
+    # enables supporting booru-prefetch script (discussed below)
+    prefetcher.enable = true; 
     imgList = [
         {
             id = "7452256";
@@ -22,15 +23,17 @@ programs.booru-flake = {
     ];
 };
 
+# NOTE you can use home manager or hjem to do this for you
 systemd.user.tmpfiles.users.your-username.rules = let
     home = config.users.users.your-username.home;
     image = config.programs.booru-flake.images."5931821"; # access a specific image
 in [
     # creates a folder in your home directory called booru and plants the auto
     # categorized image folder there
-    # NOTE you can use home manager or hjem to do this for you
     "L+ '${home}/booru' - - - - ${config.programs.booru-flake.imageFolder}"
-    "L+ '${home}/${image.name}' - - - - ${image}" # links a specific image into your home directory
+
+    # links a specific image into your home directory
+    "L+ '${home}/${image.name}' - - - - ${image}" 
 ];
 ```
 > for further documentation checkout the [nixosModule](nix/nixosModule.nix)'s descriptions
@@ -54,7 +57,7 @@ booru-prefetch 5931821 8086139
 ## Accessing the imgList of this repository
 > previews are available in [preview.md](preview.md) inspired by [orangci/walls-catppuccin](https://github.com/orangci/walls-catppuccin-mocha)
 
-> NOTE these are docs for when you expose the imageFolder in your own flake
+> NOTE these are docs for when you expose the imageFolder in your own flake 
 
 ### Accessing Folders
 The default package will download every image listed in the imglist and auto
