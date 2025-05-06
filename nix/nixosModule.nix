@@ -5,8 +5,9 @@
   ...
 }: let
   inherit (lib) mkEnableOption mkOption;
-  inherit (lib.types) listOf submodule strMatching package nullOr;
+  inherit (lib.types) listOf submodule strMatching package nullOr attrsOf;
 
+  imgBuilder = pkgs.callPackage ./imgBuilder.nix;
   imgAttr = submodule {
     options = {
       id = mkOption {
@@ -32,6 +33,7 @@ in {
     enable = mkEnableOption "Enable booru-flake";
     prefetcher.enable = mkEnableOption "Enable booru-flake prefetch script";
 
+    # leaving this as img to empahsis that this is not a readOnly
     imgList = mkOption {
       type = listOf imgAttr;
       default = [];
@@ -45,17 +47,31 @@ in {
       description = "A list of imgIds with their hashes";
     };
 
-    allFolder = mkOption {
+    images = mkOption {
+      readOnly = true;
+      type = nullOr (attrsOf package);
+      default =
+        if cfg.enable
+        then
+          pkgs.lib.attrsets.mergeAttrsList (
+            builtins.map (x: {${x.id} = imgBuilder x;}) cfg.imgList
+          )
+        else null;
+      description = "Attrset containing id as attrName and imgPackage as attrValue ideal for selecting individual images by id";
+    };
+
+    imageFolder = mkOption {
       type = nullOr package;
       readOnly = true;
       default =
         if cfg.enable
         then
           pkgs.callPackage ./all.nix {
-            imgBuilder = pkgs.callPackage ./imgBuilder.nix;
+            inherit imgBuilder;
             imgList' = cfg.imgList;
           }
         else null;
+      description = "The folder containing all the images categorized neatly";
     };
   };
 }
