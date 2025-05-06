@@ -8,7 +8,7 @@
   inherit (lib.types) listOf submodule strMatching package nullOr;
 
   imgAttr = submodule {
-    option = {
+    options = {
       id = mkOption {
         type = strMatching "[0-9]+";
         default = "";
