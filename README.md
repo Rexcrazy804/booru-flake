@@ -97,7 +97,7 @@ spec is passthru'd from the package and accessible with `"<imgid>".metadata`
 - [Danbooru](https://danbooru.donmai.us/) great image board if you can ignore
 the nsfw
 - [Myself](https://github.com/Rexcrazy804) for my need to have perfectly
-categorized **home work** folders (and being hornie)
+categorized **home work** folders
 - [noogle.dev](https://noogle.dev/) absurdly great tool for documentation and
 quickly finding source code for various functions
 - Hyprland discord (I don't think I would have written this if it weren't for that discord channel)
