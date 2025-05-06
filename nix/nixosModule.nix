@@ -35,9 +35,9 @@
     };
     invert = mkEnableOption "inverts the behavior of the filter";
   };
-  cfg = config.booru;
+  cfg = config.programs.booru-flake;
 in {
-  options.booru = {
+  options.programs.booru-flake = {
     enable = mkEnableOption "Enable booru-flake";
     prefetcher.enable = mkEnableOption "Enable booru-flake prefetch script";
 

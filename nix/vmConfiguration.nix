@@ -29,7 +29,7 @@
   security.sudo.wheelNeedsPassword = false;
   nix.settings.experimental-features = ["nix-command" "flakes"];
 
-  booru = {
+  programs.booru-flake = {
     enable = true;
     imgList = import ./imgList.nix;
     filters.artists = {
@@ -40,9 +40,9 @@
 
   systemd.user.tmpfiles.users.sango.rules = let
     home = config.users.users.sango.home;
-    image = config.booru.images."5931821";
+    image = config.programs.booru-flake.images."5931821";
   in [
-    "L+ '${home}/booru' - - - - ${config.booru.imageFolder}"
+    "L+ '${home}/booru' - - - - ${config.programs.booru-flake.imageFolder}"
     "L+ '${home}/${builtins.toString image.metadata.id}.${image.metadata.file_ext}' - - - - ${image}"
   ];
 }
