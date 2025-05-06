@@ -34,7 +34,7 @@ in [
     "L+ '${home}/${image.name}' - - - - ${image}" # links a specific image into your home directory
 ];
 ```
-> for further documentation checkout the [nixosModule](nix/nixosModule.nix)' descriptions
+> for further documentation checkout the [nixosModule](nix/nixosModule.nix)'s descriptions
 
 ### Generating nix code for imgList using `getAttrsScript`
 Additionally a `getAttrsScript` script is provided by the flake for auto
