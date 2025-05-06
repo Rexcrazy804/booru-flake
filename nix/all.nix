@@ -2,8 +2,21 @@
   pkgs,
   lib,
   imgBuilder,
+  imgList',
+  filters ? {
+    characters = {
+      list = [];
+      invert = false;
+    };
+    copyrights = {
+      list = [];
+      invert = false;
+    };
+    artists.list = ["elodeas" "yoneyama_mai" "void_0" "morncolour"];
+    artists.invert = true;
+  },
 }: let
-  imgList = builtins.map (x: imgBuilder x) (import ./imgList.nix);
+  imgList = builtins.map (x: imgBuilder x) imgList';
   imgListLen = lib.lists.length imgList;
 
   # CharacterMap (and others) follow the following format
@@ -48,15 +61,26 @@
     path = pkgs.linkFarmFromDrvs key value;
   });
 
-  writePreview = pkgs.callPackage ./imgPreview.nix {inherit imgList; };
+  writePreview = pkgs.callPackage ./imgPreview.nix {inherit imgList;};
 
-  copyrightFolders = builtins.attrValues (farmMap categoryMaps.copyrightMap);
-  characterFolders = builtins.attrValues (farmMap categoryMaps.characterMap);
-  artistFolders = let
-    favArtists = ["elodeas" "yoneyama_mai" "void_0" "morncolour"];
-    filter' = list: builtins.filter (set: builtins.elem set.name favArtists) list;
+  characterFolders = let
+    # conditionally inverts the filter functionality based on filter.*.invert
+    # if you want more info fucking learn A xor B truth table
+    filter' = builtins.filter (set: lib.xor (!filters.characters.invert) (builtins.elem set.name filters.characters.list));
+    list = builtins.attrValues (farmMap categoryMaps.characterMap);
   in
-    filter' (builtins.attrValues (farmMap categoryMaps.artistMap));
+    filter' list;
+  copyrightFolders = let
+    filter' = builtins.filter (set: lib.xor (!filters.copyrights.invert) (builtins.elem set.name filters.copyrights.list));
+    list = builtins.attrValues (farmMap categoryMaps.copyrightMap);
+  in
+    filter' list;
+  artistFolders = let
+    filter' = builtins.filter (set: lib.xor (!filters.artists.invert) (builtins.elem set.name filters.artists.list));
+    list = builtins.attrValues (farmMap categoryMaps.artistMap);
+  in
+    filter' list;
+
   # needa link this inplace to avoid getting gc'd and rebuilding everything
   JsonFolder = pkgs.linkFarmFromDrvs "jsons" (builtins.map (img: img.raw_metadata) imgList);
 in
