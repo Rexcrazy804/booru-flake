@@ -30,17 +30,12 @@ in [
     # categorized image folder there
     # NOTE you can use home manager or hjem to do this for you
     "L+ '${home}/booru' - - - - ${config.programs.booru-flake.imageFolder}"
-
     "L+ '${home}/${image.name}' - - - - ${image}" # links a specific image into your home directory
 ];
 ```
 > for further documentation checkout the [nixosModule](nix/nixosModule.nix)'s descriptions
 
-### Generating nix code for imgList using `getAttrsScript`
-Additionally a `getAttrsScript` script is provided by the flake for auto
-gneerating the nix code for adding a new entry in the imgList. It accepts any
-number of space seperated danbooru IDS
-
+### Generating nix code for imgList using `booru-prefetch`
 ```sh
 booru-prefetch 5931821 8086139
 # will output the following to stdout [just pipe it to wl-copy or save to file]
