@@ -1,13 +1,42 @@
-# Purely Functional Image Library
+# Purely Functional Reproducable Image Library
+Booru-flake is a nixos module for declaratively storing and auto categorizing
+your collection of danbooru images based on characters, copyrights, and artists.
+Letting you reference images throughout your nixos configuration with ease
+
+## Example configuration
+```nix
+programs.booru-flake = {
+    enable = true;
+    prefetcher.enable = true; # enables supporting script for prefetching; generates below structure for given image ids
+    imgList = [
+        {
+            id = "7452256";
+            jsonHash = "sha256-T+NzB5md5SheEOQIFuth0AgMUhSK9kikneQkM6w4XhQ=";
+            imgHash = "sha256-U18rCuKNSTKPLPl5tzDDhudJYWU2nVOgLRwTlDHCJJ4=";
+        }
+        {
+            id = "5931821";
+            jsonHash = "sha256-pBnBov+xukptTx0wYg5x4KfKAA9aTy3J7Kk6nZLuohM=";
+            imgHash = "sha256-w1blRj2GXbl18eAgokb5o7NGbN7+mUSESOqGDud1ofc=";
+        }
+    ];
+};
+
+systemd.user.tmpfiles.users.your-username.rules = let
+    home = config.users.users.your-username.home;
+    image = config.programs.booru-flake.images."5931821"; # access a specific image
+in [
+    # creates a folder in your home directory called booru and plants the auto
+    # categorized image folder there
+    # NOTE you can use home manager or hjem to do this for you
+    "L+ '${home}/booru' - - - - ${config.programs.booru-flake.imageFolder}"
+
+    "L+ '${home}/${image.name}' - - - - ${image}" # links a specific image into your home directory
+];
+```
+
+# Accessing the imgList of this repository (legacy docs now)
 > previews are available in [preview.md](preview.md) inspired by [orangci/walls-catppuccin](https://github.com/orangci/walls-catppuccin-mocha)
-
-A nixos flake that automatically downloads, and categorizes images from
-danbooru given a list of [img IDs](nix/imgList.nix)
-
-This is primarily just a flake that I created to put my own nix skills to the
-test. Making a module out of this will be pretty easy. Maybe I will do that
-next. If anyone is interested in doing it feel very welcome to do so :D
-
 ## Accessing Folders
 The default package will download every image listed in the imglist and auto
 categorize them
@@ -16,7 +45,7 @@ nix build github:Rexcrazy804/booru-flake
 ```
 
 You may additionally access specific character or copyright or artist folders
-with the following syntax: 
+with the following syntax:
 ```sh
 # Replace .# with github:Rexcrazy804/booru-flake#
 # builds all images of void_0 into result/
@@ -28,7 +57,7 @@ nix build .#default.entries.Characters.entries.sangonomiya_kokomi
 # builds all images belonging to genshin_impact
 nix build .#default.entries.Copyrights.entries.genshin_impact
 ```
-additionally if you are unsure what is valid within each entry just place a `.` after the 
+additionally if you are unsure what is valid within each entry just place a `.` after the
 entries attr like so to get a nix error spitting the whole list
 ```
 nix build .#default.entries.Copyrights.entries.

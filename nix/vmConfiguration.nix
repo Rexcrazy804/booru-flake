@@ -44,6 +44,6 @@
     image = config.programs.booru-flake.images."5931821";
   in [
     "L+ '${home}/booru' - - - - ${config.programs.booru-flake.imageFolder}"
-    "L+ '${home}/${builtins.toString image.metadata.id}.${image.metadata.file_ext}' - - - - ${image}"
+    "L+ '${home}/${image.name}' - - - - ${image}"
   ];
 }
