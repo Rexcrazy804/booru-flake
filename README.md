@@ -3,11 +3,11 @@ Booru-flake is a nixos module for declaratively storing and auto categorizing
 your collection of danbooru images based on characters, copyrights, and artists.
 Letting you reference images throughout your nixos configuration with ease
 
-## Example configuration
+### Example configuration
 ```nix
 programs.booru-flake = {
     enable = true;
-    prefetcher.enable = true; # enables supporting script for prefetching; generates below structure for given image ids
+    prefetcher.enable = true; # supporting script booru-prefetch for generating below structure
     imgList = [
         {
             id = "7452256";
@@ -34,10 +34,33 @@ in [
     "L+ '${home}/${image.name}' - - - - ${image}" # links a specific image into your home directory
 ];
 ```
+> for further documentation checkout the [nixosModule](nix/nixosModule.nix)' descriptions
 
-# Accessing the imgList of this repository (legacy docs now)
+### Generating nix code for imgList using `getAttrsScript`
+Additionally a `getAttrsScript` script is provided by the flake for auto
+gneerating the nix code for adding a new entry in the imgList. It accepts any
+number of space seperated danbooru IDS
+
+```sh
+booru-prefetch 5931821 8086139
+# will output the following to stdout [just pipe it to wl-copy or save to file]
+# {
+#   id = "5931821";
+#   jsonHash = "sha256-OIkZVByQZucTjMDSsj9MNgAMsa1eF75+uPB1ELObK38=";
+#   imgHash = "sha256-w1blRj2GXbl18eAgokb5o7NGbN7+mUSESOqGDud1ofc=";
+# }
+# {
+#   id = "8086139";
+#   jsonHash = "sha256-NVu4+qxgdu/YyuUkwHEj6gJJ0KW29UoiW+sUkWFIwqA=";
+#   imgHash = "sha256-lZoNJPNqrl3PxYDl+anP2vYhCXYbRGGJi7zZxMwb490=";
+# }
+```
+
+## Accessing the imgList of this repository
 > previews are available in [preview.md](preview.md) inspired by [orangci/walls-catppuccin](https://github.com/orangci/walls-catppuccin-mocha)
-## Accessing Folders
+> NOTE these are docs for when you expose the imageFolder in your own flake
+
+### Accessing Folders
 The default package will download every image listed in the imglist and auto
 categorize them
 ```sh
@@ -63,7 +86,7 @@ entries attr like so to get a nix error spitting the whole list
 nix build .#default.entries.Copyrights.entries.
 ```
 
-## Accessing images by ID
+### Accessing images by ID
 Images available in the newImgList can be accessed with their corresponding
 id's
 ```sh
@@ -73,24 +96,6 @@ nix build github:Rexcrazy804/booru-flake#"6073289"
 Their metadata in the form of a nix Attrset following the danbooru api json
 spec is passthru'd from the package and accessible with `"<imgid>".metadata`
 
-## Generating nix code for imgList using `getAttrsScript`
-Additionally a `getAttrsScript` script is provided by the flake for auto
-gneerating the nix code for adding a new entry in the imgList. It accepts any
-number of space seperated danbooru IDS
-```sh
-nix run github:Rexcrazy804/booru-flake#getAttrsScript -- 5931821 8086139
-# will output the following to stdout [just pipe it to wl-copy or save to file]
-# {
-#   id = "5931821";
-#   jsonHash = "sha256-OIkZVByQZucTjMDSsj9MNgAMsa1eF75+uPB1ELObK38=";
-#   imgHash = "sha256-w1blRj2GXbl18eAgokb5o7NGbN7+mUSESOqGDud1ofc=";
-# }
-# {
-#   id = "8086139";
-#   jsonHash = "sha256-NVu4+qxgdu/YyuUkwHEj6gJJ0KW29UoiW+sUkWFIwqA=";
-#   imgHash = "sha256-lZoNJPNqrl3PxYDl+anP2vYhCXYbRGGJi7zZxMwb490=";
-# }
-```
 
 ## Credits
 - [Danbooru](https://danbooru.donmai.us/) great image board if you can ignore
