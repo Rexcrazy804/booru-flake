@@ -1,5 +1,5 @@
 {
-  description = "Rexiel Scarlet's collection of Images from danbooru";
+  description = "Rexiel Scarlet's Booru flake";
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
@@ -38,6 +38,7 @@
             inherit imgBuilder;
             imgList' = import ./nix/imgList.nix;
           };
+
           getAttrsScript = pkgs.callPackage ./nix/getAttrsScript.nix {};
 
           # vm used to test nixosModule
@@ -49,14 +50,6 @@
             ];
             format = "vm";
           };
-
-          # illustrates how you can crop images (maybe make this a function?)
-          cropper = let
-            image = images."7472531";
-          in
-            pkgs.runCommandLocal "croped-${image.name}" {} ''
-              ${pkgs.imagemagick}/bin/magick ${image} -crop 3280x1845+0+1800 - > $out
-            '';
         }
     );
 
