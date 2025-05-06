@@ -3,6 +3,9 @@ Booru-flake is a nixos module for declaratively storing and auto categorizing
 your collection of danbooru images based on characters, copyrights, and artists.
 Letting you reference images throughout your nixos configuration with ease
 
+![image](https://github.com/user-attachments/assets/d70455ef-bd02-4658-bd42-a02c8c6d3c74)
+> foreground art [source](https://i.pximg.net/img-original/img/2024/05/09/18/11/59/118574918_p0.jpg), background art [source](https://x.com/SpiritCrisisDAL/status/1585472858385395713)
+
 ### Example configuration
 ```nix
 programs.booru-flake = {
@@ -41,7 +44,7 @@ in [
 ### Generating nix code for imgList using `booru-prefetch`
 ```sh
 booru-prefetch 5931821 8086139
-# will output the following to stdout [just pipe it to wl-copy or save to file]
+# will output the following to stdout
 # {
 #   id = "5931821";
 #   jsonHash = "sha256-OIkZVByQZucTjMDSsj9MNgAMsa1eF75+uPB1ELObK38=";
@@ -69,7 +72,7 @@ nix build github:Rexcrazy804/booru-flake
 You may additionally access specific character or copyright or artist folders
 with the following syntax:
 ```sh
-# Replace .# with github:Rexcrazy804/booru-flake#
+# Replace .# with github:Rexcrazy804/booru-flake# if building remotely
 # builds all images of void_0 into result/
 nix build .#default.entries.Artists.entries.void_0
 
@@ -103,4 +106,5 @@ the nsfw
 categorized **home work** folders
 - [noogle.dev](https://noogle.dev/) absurdly great tool for documentation and
 quickly finding source code for various functions
+- [matugen nix module](https://github.com/InioX/matugen) primary reference for creating the nixos module
 - Hyprland discord (I don't think I would have written this if it weren't for that discord channel)
