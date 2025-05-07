@@ -27,7 +27,7 @@
   filteredImgs = builtins.filter (img: !(builtins.elem img.metadata.id filteredIds)) imgList;
 in
   writeText "preview.md" /*markdown*/ ''
-    # Image previews by [booru-flake](github.com/Rexcrazy804/booru-flake)
+    # Image previews
     | Column 1 | Column 2 | Column 3 | Column 4 |
     |----------|----------|----------|----------|
     ${imgListToTable {list = filteredImgs;}}
