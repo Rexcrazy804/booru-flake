@@ -2,7 +2,7 @@
   writeText,
   lib,
   imgList,
-  sfwonly ? true,
+  ratings,
 }: let
   imgListToTable = {
     list,
@@ -24,7 +24,10 @@
     else (builtins.concatStringsSep "\n" output);
 
   # list of images that are too sus for the previews
-  filteredImgs = if sfwonly then builtins.filter (img: img.metadata.rating == "g") imgList else imgList;
+  filteredImgs = let
+    filter' = builtins.filter (list: lib.xor (!ratings.invert) (builtins.elem list.metadata.rating ratings.list));
+  in
+    filter' imgList;
 in
   writeText "preview.md" /*markdown*/ ''
     # Image previews
