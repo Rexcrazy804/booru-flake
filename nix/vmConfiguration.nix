@@ -4,7 +4,10 @@
   config,
   ...
 }: {
-  imports = [(modulesPath + "/profiles/qemu-guest.nix")];
+  imports = [
+    (modulesPath + "/profiles/qemu-guest.nix")
+    (modulesPath + "/virtualisation/qemu-vm.nix")
+  ];
 
   networking.hostName = "booru";
   system.stateVersion = "25.05";

@@ -3,16 +3,11 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
-    generators = {
-      url = "github:nix-community/nixos-generators";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
   outputs = {
     self,
     nixpkgs,
-    generators,
   }: let
     systems = ["x86_64-linux" "aarch64-linux" "x86_64-darwin" "aarch64-darwin"];
     forAllSystems = f:
@@ -42,14 +37,14 @@
           getAttrsScript = pkgs.callPackage ./nix/getAttrsScript.nix {};
 
           # vm used to test nixosModule
-          testVm = generators.nixosGenerate {
-            inherit (pkgs) system;
-            modules = [
-              ./nix/vmConfiguration.nix
-              (self.nixosModules.default)
-            ];
-            format = "vm";
-          };
+          testVm =
+            (nixpkgs.lib.nixosSystem {
+              inherit (pkgs) system;
+              modules = [
+                ./nix/vmConfiguration.nix
+                (self.nixosModules.default)
+              ];
+            }).config.system.build.vm;
         }
     );
 
