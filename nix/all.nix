@@ -17,8 +17,8 @@
 
     # valid ratings are "e"xplicit, "q"uestionable, "s"ensitive, "g"eneral
     previews.ratings = {
-      list = ["e" "q"];
-      invert = false;
+      list = ["g"];
+      invert = true;
     };
   },
 }: let
