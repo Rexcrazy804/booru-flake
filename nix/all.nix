@@ -14,6 +14,12 @@
     };
     artists.list = ["elodeas" "yoneyama_mai" "void_0" "morncolour"];
     artists.invert = true;
+
+    # valid ratings are "e"xplicit, "q"uestionable, "s"ensitive, "g"eneral
+    previews.ratings = {
+      list = ["e" "q"];
+      invert = false;
+    };
   },
 }: let
   imgList = builtins.map (x: imgBuilder x) imgList';
@@ -61,7 +67,10 @@
     path = pkgs.linkFarmFromDrvs key value;
   });
 
-  writePreview = pkgs.callPackage ./imgPreview.nix {inherit imgList;};
+  writePreview = pkgs.callPackage ./imgPreview.nix {
+    inherit imgList;
+    inherit (filters.previews) ratings;
+  };
 
   characterFolders = let
     # conditionally inverts the filter functionality based on filter.*.invert

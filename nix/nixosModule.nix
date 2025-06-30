@@ -59,6 +59,8 @@ in {
       characters = filtterAttr;
       artists = filtterAttr;
       copyrights = filtterAttr;
+      # see all.nix for valid ratings
+      previews.ratings = filtterAttr;
     };
 
     images = mkOption {

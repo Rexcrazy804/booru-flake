@@ -2,6 +2,7 @@
   writeText,
   lib,
   imgList,
+  ratings,
 }: let
   imgListToTable = {
     list,
@@ -23,8 +24,10 @@
     else (builtins.concatStringsSep "\n" output);
 
   # list of images that are too sus for the previews
-  filteredIds = [ 6351551  6983927 9044041];
-  filteredImgs = builtins.filter (img: !(builtins.elem img.metadata.id filteredIds)) imgList;
+  filteredImgs = let
+    filter' = builtins.filter (list: lib.xor (!ratings.invert) (builtins.elem list.metadata.rating ratings.list));
+  in
+    filter' imgList;
 in
   writeText "preview.md" /*markdown*/ ''
     # Image previews
