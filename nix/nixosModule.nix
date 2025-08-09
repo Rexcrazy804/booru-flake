@@ -5,7 +5,8 @@
   ...
 }: let
   inherit (lib) mkEnableOption mkOption mkIf;
-  inherit (lib.types) listOf submodule strMatching package nullOr attrsOf str;
+  inherit (lib.types) listOf strMatching nullOr attrsOf ;
+  inherit (lib.types) str int package submodule enum;
 
   imgBuilder = pkgs.callPackage ./imgBuilder.nix;
   imgAttr = submodule {
@@ -60,7 +61,26 @@ in {
       artists = filtterAttr;
       copyrights = filtterAttr;
       # see all.nix for valid ratings
-      previews.ratings = filtterAttr;
+      previews = {
+        ratings =
+          filtterAttr
+          // {
+            list = mkOption {
+              type = listOf (enum ["g" "q" "s" "e"]);
+              default = [];
+              description = "filter images with the provided ratings in generated peview";
+            };
+          };
+        ids =
+          filtterAttr
+          // {
+            list = mkOption {
+              type = listOf int;
+              default = [];
+              description = "filter images with the provided ids in generated peview";
+            };
+          };
+      };
     };
 
     images = mkOption {

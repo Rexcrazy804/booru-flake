@@ -41,9 +41,15 @@
         list = ["elodeas" "yoneyama_mai" "void_0" "morncolour"];
         invert = true;
       };
-      previews.ratings = {
-        list = ["e" "q"];
-        invert = false;
+      previews = {
+        ratings = {
+          list = ["g"];
+          invert = true;
+        };
+        ids = {
+          list = [8959480];
+          invert = false;
+        };
       };
     };
   };
