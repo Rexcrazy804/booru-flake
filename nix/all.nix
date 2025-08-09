@@ -16,9 +16,15 @@
     artists.invert = true;
 
     # valid ratings are "e"xplicit, "q"uestionable, "s"ensitive, "g"eneral
-    previews.ratings = {
-      list = ["g"];
-      invert = true;
+    previews = {
+      ratings = {
+        list = ["g"];
+        invert = true;
+      };
+      ids = {
+        list = [8959480];
+        invert = false;
+      };
     };
   },
 }: let
@@ -69,7 +75,7 @@
 
   writePreview = pkgs.callPackage ./imgPreview.nix {
     inherit imgList;
-    inherit (filters.previews) ratings;
+    filters = filters.previews;
   };
 
   characterFolders = let
