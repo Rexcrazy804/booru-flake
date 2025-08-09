@@ -4,27 +4,28 @@
   imgList,
   filters,
 }: let
-  inherit (lib) pipe filter elem xor;
+  inherit (lib) map pipe filter elem xor concatStringsSep length;
+  inherit (lib.lists) take drop;
   inherit (filters) ratings ids;
 
   imgListToTable = {
     list,
     output ? [],
   }:
-    if builtins.length list > 0
+    if length list > 0
     then let
-      firstFour = lib.lists.take 4 list;
-      output' = lib.pipe firstFour [
-        (builtins.map (img: let met = img.metadata; in "[![${img.name}](${met.preview_file_url})](${met.file_url})"))
-        (builtins.concatStringsSep " | ")
+      firstFour = take 4 list;
+      output' = pipe firstFour [
+        (map (img: let met = img.metadata; in "[![${img.name}](${met.preview_file_url})](${met.file_url})"))
+        (concatStringsSep " | ")
         (x: "| ${x} |")
       ];
     in
       imgListToTable {
-        list = lib.lists.drop 4 list;
+        list = drop 4 list;
         output = output ++ [output'];
       }
-    else (builtins.concatStringsSep "\n" output);
+    else (concatStringsSep "\n" output);
 
   # list of images that are too sus for the previews
   filteredImgs = pipe imgList [
