@@ -34,6 +34,8 @@
             imgList' = import ./nix/imgList.nix;
           };
 
+          inherit imgBuilder;
+
           getAttrsScript = pkgs.callPackage ./nix/getAttrsScript.nix {};
 
           # vm used to test nixosModule
