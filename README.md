@@ -1,4 +1,8 @@
 # Simple auto categorizing image library
+
+> [!NOTE]
+> This project has been suceeded by [booru-hs](https://github.com/Rexcrazy804/booru.hs)
+
 Booru-flake is a nixos module for declaratively storing and auto categorizing
 your collection of danbooru images based on characters, copyrights, and artists.
 Letting you reference images throughout your nixos configuration with ease
